@@ -19,3 +19,28 @@ mlp_regressor = MLPRegressor(hidden_layer_sizes=(100, 50), max_iter=500, early_s
 # Train the model
 mlp_regressor.fit(X_train, y_train)
 print("MLPRegressor trained successfully!")
+
+# Predict on training data
+train_pred = mlp_regressor.predict(X_train)
+
+# Make sure figures folder exists
+os.makedirs("figures", exist_ok=True)
+
+# Actual vs. Predicted - Training Data
+plt.figure(figsize=(7, 6))
+plt.scatter(y_train, train_pred, alpha=0.4)
+
+# Reference line for perfect predictions
+min_val = min(y_train.min(), train_pred.min())
+max_val = max(y_train.max(), train_pred.max())
+plt.plot([min_val, max_val], [min_val, max_val], linestyle="--")
+
+plt.xlabel("Actual Median House Value")
+plt.ylabel("Predicted Median House Value")
+plt.title("Actual vs. Predicted - Training Data")
+
+plt.tight_layout()
+plt.savefig("figures/train_actual_vs_pred.png", dpi=150)
+plt.close()
+
+print("Saved figures/train_actual_vs_pred.png")
