@@ -44,3 +44,26 @@ plt.savefig("figures/train_actual_vs_pred.png", dpi=150)
 plt.close()
 
 print("Saved figures/train_actual_vs_pred.png")
+
+# Make predictions on the test set
+y_pred_test = mlp_regressor.predict(X_test)
+
+# Create 'figures' directory if it doesn't exist
+output_dir = 'figures'
+os.makedirs(output_dir, exist_ok=True)
+
+# Plot Actual vs. Predicted for Test Data
+plt.figure(figsize=(10, 6))
+plt.scatter(y_test, y_pred_test, alpha=0.3)
+plt.plot([y_test.min(), y_test.max()], [y_test.min(), y_test.max()], 'r--', lw=2) # Diagonal line
+plt.xlabel('Actual Values (Test)')
+plt.ylabel('Predicted Values (Test)')
+plt.title('MLPRegressor: Actual vs. Predicted (Test Data)')
+plt.grid(True)
+plt.tight_layout()
+
+# Save the plot
+plt.savefig(os.path.join(output_dir, 'test_actual_vs_pred.png'))
+plt.close()
+
+print("Test predictions generated and 'test_actual_vs_pred.png' saved to the 'figures' directory.")
